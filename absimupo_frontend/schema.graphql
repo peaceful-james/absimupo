@@ -1,0 +1,83 @@
+schema {
+  query: RootQueryType
+  mutation: RootMutationType
+  subscription: RootSubscriptionType
+}
+
+type Thing implements Node {
+  """The ID of an object"""
+  id: ID!
+  imageUrlLogo: String
+  name: String
+}
+
+type ThingConnection {
+  edges: [ThingEdge]
+  pageInfo: PageInfo!
+}
+
+type ThingEdge {
+  cursor: String
+  node: Thing
+}
+
+input ThingInput {
+  logo: Upload
+  name: String!
+}
+
+type ThingResult {
+  thing(after: String, before: String, first: Int, last: Int): ThingConnection
+  errors: [InputError]
+}
+
+"""An error encountered trying to perform the query/mutation"""
+type InputError {
+  key: String!
+  message: String!
+
+  """
+  Error "status codes" which logically align with HTTP status codes.
+  See https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_client_errors
+  
+  """
+  statusCode: Int
+}
+
+interface Node {
+  """The ID of the object."""
+  id: ID!
+}
+
+type PageInfo {
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+}
+
+type RootMutationType {
+  createThing(input: ThingInput!): ThingResult
+}
+
+type RootQueryType {
+  listThings(after: String, before: String, first: Int, last: Int): ThingConnection
+}
+
+type RootSubscriptionType {
+  thingCreated(after: String, before: String, first: Int, last: Int): ThingConnection
+}
+
+"""
+Represents an uploaded file.
+
+"""
+scalar Upload
+

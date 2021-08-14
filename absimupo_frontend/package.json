@@ -1,0 +1,40 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "relay": "relay-compiler --src . --schema ./schema.graphql --extensions ts tsx --language \"typescript\" --customScalars.Upload=UploadableMap"
+  },
+  "dependencies": {
+    "@absinthe/socket": "^0.2.1",
+    "@absinthe/socket-relay": "^0.2.1",
+    "@types/absinthe__socket": "^0.2.3",
+    "@types/phoenix": "^1.5.2",
+    "@types/react-relay": "^11.0.2",
+    "@types/relay-runtime": "^11.0.2",
+    "babel-plugin-relay": "^11.0.2",
+    "expo": "~42.0.1",
+    "expo-image-picker": "~10.2.2",
+    "expo-splash-screen": "~0.11.2",
+    "expo-status-bar": "~1.0.4",
+    "phoenix": "^1.5.10",
+    "react": "^17.0.2",
+    "react-dom": "16.13.1",
+    "react-native": "^0.64.2",
+    "react-native-web": "^0.17.1",
+    "react-relay": "^11.0.2",
+    "relay-compiler": "^11.0.2",
+    "relay-compiler-language-typescript": "^14.1.0",
+    "relay-runtime": "^11.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@types/react": "~16.9.35",
+    "@types/react-native": "~0.63.2",
+    "typescript": "~4.0.0"
+  },
+  "private": true
+}

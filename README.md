@@ -1,10 +1,20 @@
 # Absimupo
 
-https://absimupo.peacefulprogramming.dev/
-
 Abinthe Image Uploading with Expo
 
 Lets you upload and browse "logos" for "Things".
+
+It's deployed here:
+
+https://absimupo.peacefulprogramming.dev/
+
+But creating things has probably been forbidden (to prevent spam).
+
+If you want to create things, contact me here: 
+
+https://peacefulprogramming.dev/contact
+
+with a nice message and I will enable creating things for a short while.
 
 ### The architecture
 

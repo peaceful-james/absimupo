@@ -19,8 +19,10 @@ defmodule Absimupo.Core.Thing do
     |> maybe_forbid()
   end
 
+  @cut_off_datetime DateTime.new!(~D[2021-08-16], ~T[00:00:00])
   defp maybe_forbid(changeset) do
-    if System.get_env("FORBID_CREATING_THINGS") do
+    too_late = DateTime.compare(@cut_off_datetime, DateTime.utc_now()) == :lt
+    if System.get_env("FORBID_CREATING_THINGS") or too_late do
       add_error(changeset, :name, "Nobody is allowed to create new things right now, sorry.")
     else
       changeset

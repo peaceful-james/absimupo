@@ -16,5 +16,14 @@ defmodule Absimupo.Core.Thing do
     |> cast(attrs, [:name])
     |> validate_required([:name])
     |> unsafe_validate_unique([:name], Absimupo.Repo)
+    |> maybe_forbid()
+  end
+
+  defp maybe_forbid(changeset) do
+    if System.get_env("FORBID_CREATING_THINGS") do
+      add_error(changeset, :name, "Nobody is allowed to create new things right now, sorry.")
+    else
+      changeset
+    end
   end
 end

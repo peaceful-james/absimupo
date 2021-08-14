@@ -10,7 +10,7 @@ https://absimupo.peacefulprogramming.dev/
 
 But creating things has probably been forbidden (to prevent spam).
 
-    If you want to create things, contact me here: 
+If you want to create things, contact me here: 
 
 https://peacefulprogramming.dev/contact
 

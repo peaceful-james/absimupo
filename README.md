@@ -10,11 +10,13 @@ https://absimupo.peacefulprogramming.dev/
 
 But creating things has probably been forbidden (to prevent spam).
 
-If you want to create things, contact me here: 
+    If you want to create things, contact me here: 
 
 https://peacefulprogramming.dev/contact
 
 with a nice message and I will enable creating things for a short while.
+
+Warning: if enabled, creating things is SLOW. The deployment is on free tier gigalixir, hosted in the US.
 
 ### The architecture
 

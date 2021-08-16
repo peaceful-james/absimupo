@@ -5,7 +5,7 @@ defmodule Absimupo.Core.Thing do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "things" do
-    field :name, :string
+    field(:name, :string)
 
     timestamps()
   end
@@ -21,11 +21,14 @@ defmodule Absimupo.Core.Thing do
 
   @cut_off_datetime DateTime.new!(~D[2021-08-16], ~T[00:00:00])
   defp maybe_forbid(changeset) do
-    too_late = DateTime.compare(@cut_off_datetime, DateTime.utc_now()) == :lt
-    if System.get_env("FORBID_CREATING_THINGS") or too_late do
+    if is_binary(System.get_env("FORBID_CREATING_THINGS")) do
       add_error(changeset, :name, "Nobody is allowed to create new things right now, sorry.")
     else
-      changeset
+      if DateTime.compare(@cut_off_datetime, DateTime.utc_now()) == :lt do
+        add_error(changeset, :name, "Nobody is allowed to create new things right now, sorry.")
+      else
+        changeset
+      end
     end
   end
 end

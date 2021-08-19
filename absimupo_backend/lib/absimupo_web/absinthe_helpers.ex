@@ -16,4 +16,16 @@ defmodule AbsimupoWeb.AbsintheHelpers do
       _ -> nil
     end
   end
+
+  def type_for_schema(%Absimupo.Core.Thing{}), do: :thing
+
+  def type_for_schema(schema) do
+    raise("non-implemented type case for schema #{schema}")
+  end
+
+  def schema_for_type(:thing), do: Absimupo.Core.Thing
+
+  def schema_for_type(type) do
+    raise("non-implemented schema case for type #{type}")
+  end
 end

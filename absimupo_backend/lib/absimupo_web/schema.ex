@@ -2,6 +2,7 @@ defmodule AbsimupoWeb.Schema do
   use Absinthe.Schema
   use Absinthe.Relay.Schema, :modern
   import Ecto.Query
+  alias AbsimupoWeb.AbsintheHelpers
 
   alias AbsimupoWeb.Schema.Middleware
 
@@ -13,21 +14,21 @@ defmodule AbsimupoWeb.Schema do
 
   node interface do
     resolve_type(fn
-      anything, _ ->
-        anything
+      schema, _ ->
+        AbsintheHelpers.type_for_schema(schema)
     end)
   end
 
   @desc "An error encountered trying to perform the query/mutation"
   object :input_error do
-    field :key, non_null(:string)
-    field :message, non_null(:string)
+    field(:key, non_null(:string))
+    field(:message, non_null(:string))
 
     @desc """
     Error "status codes" which logically align with HTTP status codes.
     See https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#4xx_client_errors
     """
-    field :status_code, :integer
+    field(:status_code, :integer)
   end
 
   def middleware(middleware, field, object) do
@@ -49,8 +50,9 @@ defmodule AbsimupoWeb.Schema do
   def data_query(queryable, params) do
     preload = params[:preload] || []
 
-    from q in queryable,
+    from(q in queryable,
       preload: ^preload
+    )
   end
 
   def context(ctx) do
@@ -67,6 +69,20 @@ defmodule AbsimupoWeb.Schema do
 
   query do
     import_fields(:thing_queries)
+
+    node field do
+      resolve(fn
+        %{type: type, id: id}, %{context: %{loader: loader}} ->
+          schema = AbsintheHelpers.schema_for_type(type)
+          result = AbsintheHelpers.get_via_dataloader(loader, schema, id)
+          {:ok, result}
+
+        arg1, arg2 ->
+          raise(
+            "non-implemented resolution for arg1: #{inspect(arg1, pretty: true)} and arg2: #{inspect(arg2, pretty: true)}"
+          )
+      end)
+    end
   end
 
   mutation do
